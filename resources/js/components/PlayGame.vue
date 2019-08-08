@@ -75,7 +75,7 @@ export default{
 				}
 			},
 			increaseScore(){
-				this.score += 10;
+				this.score += 5;
 			},
 			drawScore(){
 				this.ctx.beginPath();
@@ -135,7 +135,7 @@ export default{
 				else if(this.leftPressed && this.paddleX > 0) {
 					this.paddleX -= 3;
 				}
-				
+
 			},
 			sendScoreToParent(score){
 				this.$emit('getScoreFromChild', score)

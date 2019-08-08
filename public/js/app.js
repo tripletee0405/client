@@ -1971,7 +1971,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     increaseScore: function increaseScore() {
-      this.score += 10;
+      this.score += 5;
     },
     drawScore: function drawScore() {
       this.ctx.beginPath();
