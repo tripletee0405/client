@@ -1,11 +1,11 @@
 <template>
 	<div class="top-highscore">
-		<h3>TOP 10 HIGH SCORE</h3>
+		<h3>HIGH SCORE</h3>
 		<table>
 			<tr>
 				<th style="color: green;">Avatar</th>
-				<th style="color: blue;">Name</th>
-				<th style="color: red;">Score</th>
+				<th style="color: blue;">User</th>
+				<th style="color: red;">High Score</th>
 			</tr>	
 			<tr v-for="player in Listplayer">
 				<td><img v-bind:src="player.img" alt=""></td>
@@ -25,10 +25,10 @@
 			}
 		},
 		created(){
-			this.getList10()
+			this.getTopTen()
 		},
 		methods:{
-			getList10(){
+			getTopTen(){
 				axios.get('/scores')
     			.then(response=>{
     				this.Listplayer = response.data

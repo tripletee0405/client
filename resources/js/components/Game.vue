@@ -1,23 +1,28 @@
 <template>
-	<div class="game-calling">
-		
-        <div class="list-top10">
-        	<List ref="form"></List>
-        </div>
-        <div class="play-game">
-        	<Play @getScoreFromChild="afterGetScore"></Play>
-        </div>
-    </div>
+
+	<div class="game">
+		<div class="top-ten"> <!-- list top ten -->
+			<TopTen ref="form"></TopTen>
+		</div>
+
+		<div class="play-game"> 
+			<PlayGame @getScoreFromChild="afterGetScore"></PlayGame>
+		</div>
+	</div>
+
 </template>
+
+
 <script>
-	import List from './List10.vue'
-	import Play from './Play.vue'
+	import TopTen from './TopTen.vue' //import file TopTen.vue dưới dạng component tên là TopTen
+	import PlayGame from './PlayGame.vue' //import file PlayGame.vue dưới dạng component tên là PlayGame
 
 	export default{
 		components:{
-			List,
-			Play
+			TopTen,
+			PlayGame
 		},
+
 		created(){
 			var url_string = window.location.href
 			var url = new URL(url_string)
@@ -25,44 +30,44 @@
 			
 			this.username = user_name
 		},
+
 		data(){
 			return{
 				username: '',
 			}
 		},
+
 		methods:{
 			afterGetScore(score){
-				//luu score va user vao db
-				axios.post('/scores',{name: this.username, score: score})
-    			.then(response=>{
-    				console.log(response.data.result),
-    				//goi lai ham getlistTop10 cua component con List
-    				this.$refs.form.getList10()
-    			})
+				axios.post('/scores',{name: this.username, score: score})// gửi lên db username và score
+				.then(response=>{
+					console.log(response.data.result),
+					this.$refs.form.getTopTen()//chạy lại hàm getTopTen của component TopTen để làm mới Top10
+				})
 			}
 		}
 	};
 </script>
 <style scoped>
-	.game-calling {  
-	  display: -ms-flexbox; 
-	  display: flex;
-	  -ms-flex-wrap: wrap;
-	  flex-wrap: wrap;
-	  padding: 0px;
-	}
+.game {  
+	display: -ms-flexbox; 
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	padding: 0px;
+}
 
-	.list-top10 {
-	  -ms-flex: 25%; 
-	  flex: 25%;
-	  background-color: #f1f1f1;
-	  padding: 0px;
-	  height: 608px;
-	}
-	.play-game {   
-	  -ms-flex: 75%;
-	  flex: 75%;
-	  background-color: white;
-	  padding: 0px;
-	}
+.top-ten {
+	-ms-flex: 25%; 
+	flex: 25%;
+	background-color: #f1f1f1;
+	padding: 0px;
+	height: 608px;
+}
+.play-game {   
+	-ms-flex: 75%;
+	flex: 75%;
+	background-color: white;
+	padding: 0px;
+}
 </style>
