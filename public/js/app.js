@@ -1927,7 +1927,8 @@ __webpack_require__.r(__webpack_exports__);
       rightPressed: false,
       leftPressed: false,
       circle: false,
-      noPlay: true
+      noPlay: true,
+      isPlaying: false
     };
   },
   mounted: function mounted() {
@@ -1935,7 +1936,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     begin: function begin() {
-      // console.log(e);
+      this.isPlaying = true;
       this.noPlay = !this.noPlay;
       var vm = this;
       vm.canvas = document.getElementById("myCanvas");
@@ -1952,8 +1953,10 @@ __webpack_require__.r(__webpack_exports__);
       document.location.reload();
     },
     keyDownEnter: function keyDownEnter(e) {
-      if (e.keyCode == 13) {
-        this.begin();
+      if (this.isPlaying == false) {
+        if (e.keyCode == 13) {
+          this.begin();
+        }
       }
     },
     keyDownHandler: function keyDownHandler(e) {
@@ -2015,6 +2018,7 @@ __webpack_require__.r(__webpack_exports__);
           // alert("GAME OVER");
           this.sendScoreToParent(this.score);
           this.score = 0;
+          this.isPlaying = false;
           this.noPlay = !this.noPlay;
           clearInterval(this.circle);
         }

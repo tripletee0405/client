@@ -26,6 +26,7 @@ export default{
 			leftPressed: false,
 			circle: false,
 			noPlay: true,
+			isPlaying: false,
 		}
 	},
 	mounted() {
@@ -33,11 +34,11 @@ export default{
 	},
 	methods:{
 		begin(){
-				// console.log(e);
-				this.noPlay = !this.noPlay;
-				var vm = this
-				vm.canvas = document.getElementById("myCanvas");
-				vm.ctx = vm.canvas.getContext("2d");
+			this.isPlaying=true;
+			this.noPlay = !this.noPlay;
+			var vm = this
+			vm.canvas = document.getElementById("myCanvas");
+			vm.ctx = vm.canvas.getContext("2d");
 
 				//ball
 				vm.x= vm.canvas.width/2;
@@ -54,8 +55,10 @@ export default{
 				document.location.reload();
 			},
 			keyDownEnter(e){
-				if(e.keyCode == 13){
-					this.begin()
+				if (this.isPlaying==false) {
+					if(e.keyCode == 13){
+						this.begin()
+					}
 				}
 			},
 			keyDownHandler(e) {
@@ -119,6 +122,7 @@ export default{
 				        // alert("GAME OVER");
 				        this.sendScoreToParent(this.score);
 				        this.score = 0;
+				        this.isPlaying= false;
 				        this.noPlay = !this.noPlay;
 				        clearInterval(this.circle);
 				    }
